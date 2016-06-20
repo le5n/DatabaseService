@@ -1,6 +1,9 @@
 package com.epam.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
+    private static final long serialVersionUID = 8775589952984481722L;
     private int id;
     private String login;
     private String password;
