@@ -1,11 +1,11 @@
 package com.epam.service;
 
 import com.epam.entity.User;
+import com.epam.entity.json.JsonObject;
+import com.epam.entity.json.JsonObjectFactory;
 import org.zeromq.ZMQ;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 
 public class Client {
     public static void main(String[] args) throws Exception {
@@ -14,22 +14,15 @@ public class Client {
             requester.connect("tcp://localhost:5555");
 
             String command = "getUserByLogin";
-            requester.send(command.getBytes(), 0);
+            String login = "kek";
 
-            byte[] reply = requester.recv(0);
-            User user = (User) getObjectFromBytes(reply);
+            String jsonString = JsonObjectFactory.getJsonString(command, login);
+            requester.send(jsonString.getBytes(), 0);
+
+            String reply = requester.recvStr();
+            User user = JsonObjectFactory.getObjectFromJson(reply, User.class);
             System.out.println(user.getLogin());
         }
 
-    }
-
-    private static Object getObjectFromBytes(byte[] reply) throws IOException, ClassNotFoundException {
-        Object obj;
-        try (ByteArrayInputStream byteIn = new ByteArrayInputStream(reply)) {
-            try (ObjectInputStream objectIn = new ObjectInputStream(byteIn)) {
-                obj = objectIn.readObject();
-            }
-        }
-        return obj;
     }
 }
