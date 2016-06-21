@@ -16,26 +16,31 @@ public class UserDAO extends AbstractDAO {
                     resultSet.getString("login"),
                     resultSet.getString("password"));
 
-    public User getUserByLogin(String login) {
+    public User getUserByLogin(User user) {
         try {
-            return getJdbcTemplate().queryForObject(GET_USER_BY_LOGIN, new Object[]{login}, mapper);
+            return getJdbcTemplate().queryForObject(GET_USER_BY_LOGIN, new Object[]{user.getLogin()}, mapper);
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return new User();
         }
     }
 
-    public User getUserByLoginPassword(String login, String password) {
+    public User getUserByLoginPassword(User user) {
         try {
-            return getJdbcTemplate().queryForObject(GET_USER_BY_LOGIN_PASSWORD, new Object[]{login, password}, mapper);
+            return getJdbcTemplate().queryForObject(GET_USER_BY_LOGIN_PASSWORD, new Object[]{user.getLogin(), user.getPassword()}, mapper);
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return new User();
         }
     }
 
-    public User newUser(String login, String password) {
-        getJdbcTemplate().update(NEW_USER, login, password);
-        return getUserByLoginPassword(login, password);
+    public User newUser(User user) {
+        if (isUserExists(user)) {
+            return new User();
+        }
+        getJdbcTemplate().update(NEW_USER, user.getLogin(), user.getPassword());
+        return getUserByLoginPassword(user);
     }
 
-
+    private boolean isUserExists(User user) {
+        return getUserByLoginPassword(user).getLogin() != null;
+    }
 }

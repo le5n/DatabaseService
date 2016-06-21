@@ -13,20 +13,23 @@ import org.zeromq.ZMQ;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Component
 public class ServerService {
-    @Autowired
     private UserDAO userDAO;
 
-    private Map<String, Strategy> strategyMap = new HashMap<String, Strategy>() {
+    private Map<String, Strategy> strategyMap = new TreeMap<String, Strategy>() {
         private static final long serialVersionUID = -4839350183777912251L;
+
         {
-            put("getUserByLogin", param -> userDAO.getUserByLogin(param[0]));
-            put("getUserByLoginPassword",  params -> userDAO.getUserByLoginPassword(params[0], params[1]));
+            put("getUserByLogin", user -> userDAO.getUserByLogin(user));
+            put("getUserByLoginPassword", user -> userDAO.getUserByLoginPassword(user));
+            put("newUser", user -> userDAO.newUser(user));
         }
     };
 
+    @Autowired
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
@@ -40,14 +43,11 @@ public class ServerService {
             responder.bind("tcp://*:5555");
             while (!Thread.currentThread().isInterrupted()) {
                 String request = responder.recvStr();
-                JsonObject object = JsonObjectFactory.getObjectFromJson(request, JsonObject.class);
-                Strategy strategy = service.strategyMap.get(object.getCommand());
+                JsonObject jsonObject = JsonObjectFactory.getObjectFromJson(request, JsonObject.class);
+                Strategy strategy = service.strategyMap.get(jsonObject.getCommand());
 
-                User user = strategy.execute(object.getParams());
-
-
+                User user = strategy.execute(jsonObject.getUser());
                 String reply = JsonObjectFactory.getJsonString(user);
-
                 responder.send(reply, 0);
             }
         }

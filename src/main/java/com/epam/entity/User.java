@@ -21,6 +21,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public User(String login) {
+        this.login = login;
+    }
+
+    public boolean validation() {
+        return login != null && password != null;
+    }
+
     public int getId() {
         return id;
     }

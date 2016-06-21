@@ -13,7 +13,7 @@ public class Client {
             String command = "getUserByLogin";
             String login = "kek";
 
-            String jsonString = JsonObjectFactory.getJsonString(command, login);
+            String jsonString = JsonObjectFactory.getJsonString(command, new User(login));
             requester.send(jsonString.getBytes(), 0);
 
             String reply = requester.recvStr();

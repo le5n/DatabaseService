@@ -1,5 +1,6 @@
 package com.epam.json;
 
+import com.epam.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -10,8 +11,8 @@ public final class JsonObjectFactory {
 
     private static ObjectMapper mapper = new ObjectMapper();
 
-    public static String getJsonString(String command, String...params) throws JsonProcessingException {
-        JsonObject jsonObject = new JsonObject(command, params);
+    public static String getJsonString(String command, User user) throws JsonProcessingException {
+        JsonObject jsonObject = new JsonObject(command, user);
         return mapper.writeValueAsString(jsonObject);
     }
 
