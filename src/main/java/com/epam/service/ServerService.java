@@ -2,8 +2,7 @@ package com.epam.service;
 
 import com.epam.database.UserDAO;
 import com.epam.entity.User;
-import com.epam.json.JsonObject;
-import com.epam.json.JsonObjectFactory;
+import com.epam.json.*;
 import com.epam.strategy.Strategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -11,9 +10,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.zeromq.ZMQ;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+
+import static com.epam.strategy.CommandName.*;
 
 @Component
 public class ServerService {
@@ -21,11 +21,10 @@ public class ServerService {
 
     private Map<String, Strategy> strategyMap = new TreeMap<String, Strategy>() {
         private static final long serialVersionUID = -4839350183777912251L;
-
         {
-            put("getUserByLogin", user -> userDAO.getUserByLogin(user));
-            put("getUserByLoginPassword", user -> userDAO.getUserByLoginPassword(user));
-            put("newUser", user -> userDAO.newUser(user));
+            put(GET_USER_BY_LOGIN, user -> userDAO.getUserByLogin(user));
+            put(GET_USER_BY_LOGIN_PASSWORD, user -> userDAO.getUserByLoginPassword(user));
+            put(NEW_USER, user -> userDAO.newUser(user));
         }
     };
 
