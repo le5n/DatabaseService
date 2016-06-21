@@ -13,7 +13,6 @@ allprojects {
         c3p0 = '0.9.1.2'
         mysql = '6.0.2'
         h2 = '1.4.191'
-        jzmq = '3.1.0'
         jeromq = '0.3.5'
         jackson = '2.7.4'
     }
@@ -33,7 +32,6 @@ dependencies {
     compile "org.springframework:spring-jdbc:$spring"
     compile "c3p0:c3p0:$c3p0"
     compile "mysql:mysql-connector-java:$mysql"
-    compile "org.zeromq:jzmq:$jzmq"
     compile "com.fasterxml.jackson.core:jackson-databind:$jackson"
     compile "org.zeromq:jeromq:$jeromq"
 
