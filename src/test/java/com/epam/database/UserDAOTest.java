@@ -19,30 +19,44 @@ public class UserDAOTest {
     public void newUser() throws Exception {
         String login = "kek";
         String password = "kek";
-        User user = new User(login,password);
-        assertEquals(user.getPassword(), userDAO.newUser(login,password).getPassword());
+        User user = new User(login, password);
+        assertEquals(user.getPassword(), userDAO.newUser(user).getPassword());
     }
 
     @Test
     public void getUser() throws Exception {
-        String expected = "pek";
-        assertEquals(expected, userDAO.getUserByLoginPassword(expected, "pek").getLogin());
+        String login = "pek";
+        String password = "pek";
+        User user = new User(login, password);
+        assertEquals(user.getLogin(), userDAO.getUserByLoginPassword(user).getLogin());
     }
 
     @Test
     public void getUserWithInvalidData() throws Exception {
-        assertNull(userDAO.getUserByLoginPassword("invalid", "invalid"));
+        String login = "invalid";
+        String password = "invalid";
+        User user = new User(login, password);
+        assertFalse( userDAO.getUserByLoginPassword(user).validation());
     }
 
     @Test
     public void getUserByLogin() throws Exception {
         String login = "pek";
-        assertEquals(login, userDAO.getUserByLogin(login).getLogin());
+        User user = new User(login);
+        assertEquals(user.getLogin(), userDAO.getUserByLogin(user).getLogin());
     }
 
     @Test
     public void getUserByInvalidLogin() throws Exception {
-        assertNull(userDAO.getUserByLogin("invalid"));
+        String login = "invalid";
+        User user = new User(login);
+        assertFalse(userDAO.getUserByLogin(user).validation());
     }
 
+    @Test
+    public void getExistedUser() throws Exception {
+        String login = "pek";
+        String password = "pek";
+        assertFalse(userDAO.newUser(new User(login, password)).validation());
+    }
 }

@@ -1,32 +1,24 @@
 package com.epam.json;
 
-import java.util.Arrays;
+import com.epam.entity.User;
 
 public class JsonObject {
     private String command;
-    private String[] params;
+    private User user;
 
     public JsonObject() {
     }
 
-    public JsonObject(String command, String... params) {
+    JsonObject(String command, User user) {
         this.command = command;
-        this.params = params.clone();
+        this.user = user;
     }
 
     public String getCommand() {
         return command;
     }
 
-    public String[] getParams() {
-        return params;
-    }
-
-    @Override
-    public String toString() {
-        return "JsonObject{" +
-                "command='" + command + '\'' +
-                ", params=" + Arrays.toString(params) +
-                '}';
+    public User getUser() {
+        return user;
     }
 }

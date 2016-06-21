@@ -4,5 +4,5 @@ import com.epam.entity.User;
 
 @FunctionalInterface
 public interface Strategy {
-    User execute(String... params);
+    User execute(User user);
 }
