@@ -1,4 +1,4 @@
-package com.epam.entity.json;
+package com.epam.json;
 
 import java.util.Arrays;
 

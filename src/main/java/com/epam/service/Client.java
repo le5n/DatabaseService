@@ -1,11 +1,8 @@
 package com.epam.service;
 
 import com.epam.entity.User;
-import com.epam.entity.json.JsonObject;
-import com.epam.entity.json.JsonObjectFactory;
+import com.epam.json.JsonObjectFactory;
 import org.zeromq.ZMQ;
-
-import java.io.*;
 
 public class Client {
     public static void main(String[] args) throws Exception {
