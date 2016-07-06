@@ -1,4 +1,4 @@
-package com.epam.strategy;
+package com.service.strategy;
 
 public interface CommandName {
     String GET_USER_BY_LOGIN = "getUserByLogin";

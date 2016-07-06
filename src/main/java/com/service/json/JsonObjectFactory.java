@@ -1,6 +1,6 @@
-package com.epam.json;
+package com.service.json;
 
-import com.epam.entity.User;
+import com.service.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

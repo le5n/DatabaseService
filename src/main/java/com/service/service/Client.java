@@ -1,7 +1,7 @@
-package com.epam.service;
+package com.service.service;
 
-import com.epam.entity.User;
-import com.epam.json.JsonObjectFactory;
+import com.service.entity.User;
+import com.service.json.JsonObjectFactory;
 import org.zeromq.ZMQ;
 
 public class Client {

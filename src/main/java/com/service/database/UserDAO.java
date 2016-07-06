@@ -1,6 +1,6 @@
-package com.epam.database;
+package com.service.database;
 
-import com.epam.entity.User;
+import com.service.entity.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
-package com.epam.strategy;
+package com.service.strategy;
 
-import com.epam.database.UserDAO;
-import com.epam.entity.User;
+import com.service.database.UserDAO;
+import com.service.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
