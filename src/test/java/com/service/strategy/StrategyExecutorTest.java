@@ -17,22 +17,6 @@ public class StrategyExecutorTest {
     private UserDAO userDAO;
 
     @Test
-    public void strategyTestByLogin() throws Exception {
-        Strategy strategy = user -> userDAO.getUserByLogin(user);
-        String login = "pek";
-        User user = new User(login);
-        user = strategy.execute(user);
-        assertEquals(login, user.getLogin());
-    }
-
-    @Test
-    public void strategyWithInvalidData() throws Exception {
-        Strategy strategy = user ->  userDAO.getUserByLogin(user);
-        User user = strategy.execute(new User());
-        assertFalse(user.validation());
-    }
-
-    @Test
     public void strategyTestByLoginPassword() throws Exception {
         Strategy strategy = user -> userDAO.getUserByLoginPassword(user);
         String login = "pek";

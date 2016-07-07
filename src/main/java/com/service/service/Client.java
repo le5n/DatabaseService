@@ -10,10 +10,11 @@ public class Client {
             ZMQ.Socket requester = context.socket(ZMQ.REQ);
             requester.connect("tcp://localhost:5555");
 
-            String command = "getUserByLogin";
+            String command = "getUserByLoginPassword";
             String login = "kek";
+            String password = "kek";
 
-            String jsonString = JsonObjectFactory.getJsonString(command, new User(login));
+            String jsonString = JsonObjectFactory.getJsonString(command, new User(login, password));
             requester.send(jsonString.getBytes(), 0);
 
             String reply = requester.recvStr();

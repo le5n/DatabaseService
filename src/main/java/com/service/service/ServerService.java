@@ -18,11 +18,10 @@ import static com.service.strategy.CommandName.*;
 @Component
 public class ServerService {
     private UserDAO userDAO;
-
+    // TODO: 7/7/16 implement ssl|https
     private Map<String, Strategy> strategyMap = new TreeMap<String, Strategy>() {
         private static final long serialVersionUID = -4839350183777912251L;
         {
-            put(GET_USER_BY_LOGIN, user -> userDAO.getUserByLogin(user));
             put(GET_USER_BY_LOGIN_PASSWORD, user -> userDAO.getUserByLoginPassword(user));
             put(NEW_USER, user -> userDAO.newUser(user));
         }

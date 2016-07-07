@@ -40,20 +40,6 @@ public class UserDAOTest {
     }
 
     @Test
-    public void getUserByLogin() throws Exception {
-        String login = "pek";
-        User user = new User(login);
-        assertEquals(user.getLogin(), userDAO.getUserByLogin(user).getLogin());
-    }
-
-    @Test
-    public void getUserByInvalidLogin() throws Exception {
-        String login = "invalid";
-        User user = new User(login);
-        assertFalse(userDAO.getUserByLogin(user).validation());
-    }
-
-    @Test
     public void getExistedUser() throws Exception {
         String login = "pek";
         String password = "pek";
