@@ -1,7 +1,7 @@
-package com.epam.strategy;
+package com.service.strategy;
 
-import com.epam.database.UserDAO;
-import com.epam.entity.User;
+import com.service.database.UserDAO;
+import com.service.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +15,6 @@ import static org.junit.Assert.*;
 public class StrategyExecutorTest {
     @Autowired
     private UserDAO userDAO;
-
-    @Test
-    public void strategyTestByLogin() throws Exception {
-        Strategy strategy = user -> userDAO.getUserByLogin(user);
-        String login = "pek";
-        User user = new User(login);
-        user = strategy.execute(user);
-        assertEquals(login, user.getLogin());
-    }
-
-    @Test
-    public void strategyWithInvalidData() throws Exception {
-        Strategy strategy = user ->  userDAO.getUserByLogin(user);
-        User user = strategy.execute(new User());
-        assertFalse(user.validation());
-    }
 
     @Test
     public void strategyTestByLoginPassword() throws Exception {

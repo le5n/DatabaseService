@@ -1,6 +1,6 @@
-package com.epam.json;
+package com.service.json;
 
-import com.epam.entity.User;
+import com.service.entity.User;
 
 public class JsonObject {
     private String command;

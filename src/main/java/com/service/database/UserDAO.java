@@ -1,13 +1,12 @@
-package com.epam.database;
+package com.service.database;
 
-import com.epam.entity.User;
+import com.service.entity.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDAO extends AbstractDAO {
-    private static final String GET_USER_BY_LOGIN = "SELECT id, login, password FROM user WHERE login = ?";
     private static final String GET_USER_BY_LOGIN_PASSWORD = "SELECT id, login, password FROM user WHERE login = ? AND password = ?";
     private static final String NEW_USER = "INSERT INTO user (login, password) VALUES (?, ?)";
 
@@ -15,14 +14,6 @@ public class UserDAO extends AbstractDAO {
             new User(resultSet.getInt("id"),
                     resultSet.getString("login"),
                     resultSet.getString("password"));
-
-    public User getUserByLogin(User user) {
-        try {
-            return getJdbcTemplate().queryForObject(GET_USER_BY_LOGIN, new Object[]{user.getLogin()}, mapper);
-        } catch (EmptyResultDataAccessException e) {
-            return new User();
-        }
-    }
 
     public User getUserByLoginPassword(User user) {
         try {

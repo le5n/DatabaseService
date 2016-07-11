@@ -1,4 +1,4 @@
-package com.epam.entity;
+package com.service.entity;
 
 import java.io.Serializable;
 

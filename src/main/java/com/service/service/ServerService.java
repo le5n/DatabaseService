@@ -1,9 +1,9 @@
-package com.epam.service;
+package com.service.service;
 
-import com.epam.database.UserDAO;
-import com.epam.entity.User;
-import com.epam.json.*;
-import com.epam.strategy.Strategy;
+import com.service.database.UserDAO;
+import com.service.entity.User;
+import com.service.json.*;
+import com.service.strategy.Strategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,16 +13,15 @@ import org.zeromq.ZMQ;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static com.epam.strategy.CommandName.*;
+import static com.service.strategy.CommandName.*;
 
 @Component
 public class ServerService {
     private UserDAO userDAO;
-
+    // TODO: 7/7/16 implement ssl|https
     private Map<String, Strategy> strategyMap = new TreeMap<String, Strategy>() {
         private static final long serialVersionUID = -4839350183777912251L;
         {
-            put(GET_USER_BY_LOGIN, user -> userDAO.getUserByLogin(user));
             put(GET_USER_BY_LOGIN_PASSWORD, user -> userDAO.getUserByLoginPassword(user));
             put(NEW_USER, user -> userDAO.newUser(user));
         }

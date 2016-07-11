@@ -1,6 +1,6 @@
-package com.epam.database;
+package com.service.database;
 
-import com.epam.entity.User;
+import com.service.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,20 +37,6 @@ public class UserDAOTest {
         String password = "invalid";
         User user = new User(login, password);
         assertFalse( userDAO.getUserByLoginPassword(user).validation());
-    }
-
-    @Test
-    public void getUserByLogin() throws Exception {
-        String login = "pek";
-        User user = new User(login);
-        assertEquals(user.getLogin(), userDAO.getUserByLogin(user).getLogin());
-    }
-
-    @Test
-    public void getUserByInvalidLogin() throws Exception {
-        String login = "invalid";
-        User user = new User(login);
-        assertFalse(userDAO.getUserByLogin(user).validation());
     }
 
     @Test

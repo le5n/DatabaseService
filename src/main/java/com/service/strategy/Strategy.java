@@ -1,6 +1,6 @@
-package com.epam.strategy;
+package com.service.strategy;
 
-import com.epam.entity.User;
+import com.service.entity.User;
 
 @FunctionalInterface
 public interface Strategy {

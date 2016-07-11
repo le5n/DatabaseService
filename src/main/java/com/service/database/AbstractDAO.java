@@ -1,4 +1,4 @@
-package com.epam.database;
+package com.service.database;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
