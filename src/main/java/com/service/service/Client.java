@@ -8,7 +8,7 @@ public class Client {
     public static void main(String[] args) throws Exception {
         try (ZMQ.Context context = ZMQ.context(1)) {
             ZMQ.Socket requester = context.socket(ZMQ.REQ);
-            requester.connect("tcp://localhost:5555");
+            requester.connect("tcp://localhost:11000");
 
             String command = "getUserByLoginPassword";
             String login = "kek";
