@@ -1,6 +1,6 @@
-package com.service.json;
+package com.service.util.json;
 
-import com.service.entity.User;
+import com.service.util.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

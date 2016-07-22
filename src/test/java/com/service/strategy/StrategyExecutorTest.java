@@ -1,7 +1,7 @@
 package com.service.strategy;
 
 import com.service.database.UserDAO;
-import com.service.entity.User;
+import com.service.util.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

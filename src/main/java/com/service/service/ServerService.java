@@ -1,8 +1,9 @@
 package com.service.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.service.database.UserDAO;
-import com.service.entity.User;
-import com.service.json.*;
+import com.service.util.entity.User;
+import com.service.util.json.*;
 import com.service.strategy.Strategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.zeromq.ZMQ;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 import static com.service.strategy.CommandName.*;
@@ -33,27 +35,32 @@ public class ServerService {
         this.userDAO = userDAO;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         ApplicationContext springContext = new ClassPathXmlApplicationContext("app-context.xml");
         ServerService service = springContext.getBean(ServerService.class);
 
         try (ZMQ.Context context = ZMQ.context(1)) {
             ZMQ.Socket responder = context.socket(ZMQ.REP);
             responder.bind("tcp://*:11000");
-            while (!Thread.currentThread().isInterrupted()) {
-                String reply = "Bad data";
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
 
-                String request = responder.recvStr();
-                System.out.println(request);
-                JsonObject jsonObject = JsonObjectFactory.getObjectFromJson(request, JsonObject.class);
-                if (jsonObject != null) {
-                    Strategy strategy = service.strategyMap.get(jsonObject.getCommand());
+                    String request = responder.recvStr();
+                    System.out.println(request);
+                    Optional<JsonObject> jsonObject = Optional.ofNullable(JsonObjectFactory.getObjectFromJson(request, JsonObject.class));
+                    Optional<User> userOptional = jsonObject.map(JsonObject::getUser);
+                    Optional<String> commandOptional = jsonObject.map(JsonObject::getCommand);
 
-                    User user = strategy.execute(jsonObject.getUser());
-                    reply = JsonObjectFactory.getJsonString(user);
+                    Strategy strategy = service.strategyMap.getOrDefault(commandOptional.orElse(GET_USER_BY_LOGIN_PASSWORD),
+                            user -> service.userDAO.getUserByLoginPassword(user));
+                    User user = strategy.execute(userOptional.orElseGet(User::new));
+                    String reply = JsonObjectFactory.getJsonString(user);
+
+                    System.out.println(reply);
+                    responder.send(reply, 0);
                 }
-                System.out.println(reply);
-                responder.send(reply, 0);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }

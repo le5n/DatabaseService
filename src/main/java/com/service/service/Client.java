@@ -1,7 +1,7 @@
 package com.service.service;
 
-import com.service.entity.User;
-import com.service.json.JsonObjectFactory;
+import com.service.util.entity.User;
+import com.service.util.json.JsonObjectFactory;
 import org.zeromq.ZMQ;
 
 public class Client {
@@ -14,12 +14,26 @@ public class Client {
             String login = "kek";
             String password = "kek";
 
-            String jsonString = JsonObjectFactory.getJsonString(command, new User(login, password));
-            requester.send(jsonString.getBytes(), 0);
+            String good = JsonObjectFactory.getJsonString(command, new User(login, password));
+            String[] jsonString = {good, "{\"command\": \"Poop\", \"user\":{\"id\":0,\"login\":\"null\",\"password\":\"null\"}}",
+                    "{\"command\": \"Poop\", \"user\":{\"id\":0,\"login\":null,\"password\":null}}",
+                    "{\"command\": \"Poop\", \"user\":{\"id\":0,\"login\":,\"password\":}}",
+                    "{\"command\": \"Poop\", \"user\":{}}",
+                    "{\"command\": \"Poop\", \"user\"}",
+                    "{\"command\": \"Poop\"}",
+                    "{\"command\": \"getUserByLoginPassword\"}",
+                    "{}"};
+            for (String s : jsonString) {
+                requester.send(s.getBytes(), 0);
 
-            String reply = requester.recvStr();
-            User user = JsonObjectFactory.getObjectFromJson(reply, User.class);
-            System.out.println(user.getLogin());
+                String reply = requester.recvStr();
+                User user = JsonObjectFactory.getObjectFromJson(reply, User.class);
+                if (user != null) {
+                    System.out.println(user.getLogin());
+                } else {
+                    System.out.println("User is null");
+                }
+            }
         }
 
     }
