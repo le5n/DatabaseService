@@ -1,7 +1,7 @@
 package com.service.service;
 
-import com.service.entity.User;
-import com.service.json.JsonObjectFactory;
+import com.service.util.entity.User;
+import com.service.util.json.JsonObjectFactory;
 import org.zeromq.ZMQ;
 
 public class Client {
@@ -19,7 +19,11 @@ public class Client {
 
             String reply = requester.recvStr();
             User user = JsonObjectFactory.getObjectFromJson(reply, User.class);
-            System.out.println(user.getLogin());
+            if (user != null) {
+                System.out.println(user.getLogin());
+            } else {
+                System.out.println("User is null");
+            }
         }
 
     }

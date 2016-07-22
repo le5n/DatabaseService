@@ -1,6 +1,6 @@
 package com.service.database;
 
-import com.service.entity.User;
+import com.service.util.entity.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

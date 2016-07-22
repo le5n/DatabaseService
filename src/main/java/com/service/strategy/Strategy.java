@@ -1,6 +1,6 @@
 package com.service.strategy;
 
-import com.service.entity.User;
+import com.service.util.entity.User;
 
 @FunctionalInterface
 public interface Strategy {

@@ -1,8 +1,8 @@
 package com.service.service;
 
 import com.service.database.UserDAO;
-import com.service.entity.User;
-import com.service.json.*;
+import com.service.util.entity.User;
+import com.service.util.json.*;
 import com.service.strategy.Strategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -50,7 +50,9 @@ public class ServerService {
                     Strategy strategy = service.strategyMap.get(jsonObject.getCommand());
 
                     User user = strategy.execute(jsonObject.getUser());
-                    reply = JsonObjectFactory.getJsonString(user);
+                    if (user != null) {
+                        reply = JsonObjectFactory.getJsonString(user);
+                    }
                 }
                 System.out.println(reply);
                 responder.send(reply, 0);
