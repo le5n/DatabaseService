@@ -1,10 +1,10 @@
 package com.service.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.service.database.UserDAO;
-import com.service.util.entity.User;
-import com.service.util.json.*;
 import com.service.strategy.Strategy;
+import com.service.util.entity.User;
+import com.service.util.json.JsonObject;
+import com.service.util.json.JsonObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,10 +23,10 @@ public class ServerService {
     // TODO: 7/7/16 implement ssl|https
     private Map<String, Strategy> strategyMap = new TreeMap<String, Strategy>() {
         private static final long serialVersionUID = -4839350183777912251L;
-
         {
             put(GET_USER_BY_LOGIN_PASSWORD, user -> userDAO.getUserByLoginPassword(user));
             put(NEW_USER, user -> userDAO.newUser(user));
+            put(GET_USER_BY_LOGIN, user -> userDAO.getUserByLogin(user));
         }
     };
 
