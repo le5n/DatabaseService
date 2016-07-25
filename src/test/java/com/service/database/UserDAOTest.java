@@ -25,8 +25,8 @@ public class UserDAOTest {
 
     @Test
     public void getUser() throws Exception {
-        String login = "pek";
-        String password = "pek";
+        String login = "user";
+        String password = "user";
         User user = new User(login, password);
         assertEquals(user.getLogin(), userDAO.getUserByLoginPassword(user).getLogin());
     }
@@ -41,15 +41,15 @@ public class UserDAOTest {
 
     @Test
     public void getExistedUser() throws Exception {
-        String login = "pek";
-        String password = "pek";
+        String login = "user";
+        String password = "user";
         assertFalse(userDAO.newUser(new User(login, password)).validation());
     }
 
     @Test
     public void getUserByLogin() throws Exception {
-        String login = "pek";
-        String password = "pek";
+        String login = "user";
+        String password = "user";
         User userByLogin = userDAO.getUserByLogin(new User(login));
         assertEquals(password, userByLogin.getPassword());
     }

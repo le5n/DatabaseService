@@ -1,1 +1,2 @@
-INSERT INTO user (login, password) VALUES ('pek', 'pek')
+INSERT INTO users (username, password) VALUES ('user', 'user');
+INSERT INTO authorities (username) VALUES ('user');
