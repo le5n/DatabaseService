@@ -7,12 +7,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDAO extends AbstractDAO {
-    private static final String GET_USER_BY_LOGIN_PASSWORD = "SELECT username, password FROM users WHERE username = ? AND password = ?";
+    private static final String GET_USER_BY_LOGIN_PASSWORD = "SELECT id, username, password FROM users WHERE username = ? AND password = ?";
     private static final String NEW_USER = "INSERT INTO users (username, password) VALUES (?, ?)";
-    private static final String GET_USER_BY_LOGIN = "SELECT username, password FROM users WHERE username = ?";
+    private static final String GET_USER_BY_LOGIN = "SELECT id, username, password FROM users WHERE username = ?";
 
     private RowMapper<User> mapper = (resultSet, i) ->
-            new User(resultSet.getString("username"),
+            new User(resultSet.getInt("id"),
+                    resultSet.getString("username"),
                     resultSet.getString("password"));
 
     public User getUserByLoginPassword(User user) {

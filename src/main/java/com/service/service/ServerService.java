@@ -22,7 +22,7 @@ public class ServerService {
     private UserDAO userDAO;
     // TODO: 7/7/16 implement ssl|https
     private Map<String, Strategy> strategyMap = new TreeMap<String, Strategy>() {
-        private static final long serialVersionUID = -4839350183777912251L;
+        private static final long serialVersionUID = -163161948782822168L;
         {
             put(GET_USER_BY_LOGIN_PASSWORD, user -> userDAO.getUserByLoginPassword(user));
             put(NEW_USER, user -> userDAO.newUser(user));
@@ -44,9 +44,7 @@ public class ServerService {
             responder.bind("tcp://*:11000");
             try {
                 while (!Thread.currentThread().isInterrupted()) {
-
                     String request = responder.recvStr();
-                    System.out.println(request);
                     Optional<JsonObject> jsonObject = Optional.ofNullable(JsonObjectFactory.getObjectFromJson(request, JsonObject.class));
                     Optional<User> userOptional = jsonObject.map(JsonObject::getUser);
                     Optional<String> commandOptional = jsonObject.map(JsonObject::getCommand);
@@ -55,8 +53,6 @@ public class ServerService {
                             user -> service.userDAO.getUserByLoginPassword(user));
                     User user = strategy.execute(userOptional.orElseGet(User::new));
                     String reply = JsonObjectFactory.getJsonString(user);
-
-                    System.out.println(reply);
                     responder.send(reply, 0);
                 }
             } catch (Exception e) {

@@ -1,4 +1,4 @@
-package com.service.service;
+package com.service;
 
 import com.service.util.entity.User;
 import com.service.util.json.JsonObjectFactory;
