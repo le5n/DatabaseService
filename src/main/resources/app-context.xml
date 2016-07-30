@@ -16,6 +16,7 @@
         <property name="testConnectionOnCheckin" value="true"/>
         <property name="idleConnectionTestPeriod" value="300"/>
         <property name="maxIdleTimeExcessConnections" value="240"/>
+        <property name="maxStatements" value="0"/>
         <property name="acquireIncrement" value="1"/>
         <property name="minPoolSize" value="3"/>
         <property name="maxPoolSize" value="20"/>
