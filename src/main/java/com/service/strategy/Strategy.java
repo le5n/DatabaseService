@@ -1,6 +1,7 @@
 package com.service.strategy;
 
-import com.service.util.entity.User;
+
+import com.chat.util.entity.User;
 
 @FunctionalInterface
 public interface Strategy {

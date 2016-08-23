@@ -1,10 +1,10 @@
 package com.service.service;
 
+import com.chat.util.entity.User;
+import com.chat.util.json.JsonObjectFactory;
+import com.chat.util.json.JsonProtocol;
 import com.service.database.UserDAO;
 import com.service.strategy.Strategy;
-import com.service.util.entity.User;
-import com.service.util.json.JsonObjectFactory;
-import com.service.util.json.JsonProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

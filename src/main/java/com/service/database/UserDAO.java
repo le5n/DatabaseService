@@ -1,6 +1,6 @@
 package com.service.database;
 
-import com.service.util.entity.User;
+import com.chat.util.entity.User;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
