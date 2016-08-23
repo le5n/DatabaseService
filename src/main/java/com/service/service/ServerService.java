@@ -3,8 +3,8 @@ package com.service.service;
 import com.service.database.UserDAO;
 import com.service.strategy.Strategy;
 import com.service.util.entity.User;
-import com.service.util.json.JsonObject;
 import com.service.util.json.JsonObjectFactory;
+import com.service.util.json.JsonProtocol;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -47,9 +47,10 @@ public class ServerService {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
                     String request = responder.recvStr();
-                    Optional<JsonObject> jsonObject = Optional.ofNullable(JsonObjectFactory.getObjectFromJson(request, JsonObject.class));
-                    Optional<User> userOptional = jsonObject.map(JsonObject::getUser);
-                    Optional<String> commandOptional = jsonObject.map(JsonObject::getCommand);
+                    Optional<JsonProtocol<User>> jsonObject = Optional.ofNullable(JsonObjectFactory
+                            .getObjectFromJson(request, JsonProtocol.class));
+                    Optional<User> userOptional = jsonObject.map(JsonProtocol::getAttachment);
+                    Optional<String> commandOptional = jsonObject.map(JsonProtocol::getCommand);
 
                     Strategy strategy = service.strategyMap.getOrDefault(commandOptional.orElse(""), user -> new User());
                     User user = strategy.execute(userOptional.orElseGet(User::new));

@@ -1,5 +1,7 @@
 package com.service.util.entity;
 
+import com.service.util.json.JsonObjectFactory;
+
 public class User  {
     private int id;
     private String login;
@@ -48,5 +50,10 @@ public class User  {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return JsonObjectFactory.getJsonString(this);
     }
 }

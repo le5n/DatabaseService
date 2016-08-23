@@ -2,6 +2,7 @@ package com.service;
 
 import com.service.util.entity.User;
 import com.service.util.json.JsonObjectFactory;
+import com.service.util.json.JsonProtocol;
 import org.zeromq.ZMQ;
 
 public class Client {
@@ -14,7 +15,7 @@ public class Client {
             String login = "kek";
             String password = "kek";
 
-            String good = JsonObjectFactory.getJsonString(command, new User(login, password));
+            String good = JsonObjectFactory.getJsonString(new JsonProtocol<>(command, new User(login, password)));
             String[] jsonString = {good, "{\"command\": \"Poop\", \"user\":{\"id\":0,\"login\":\"null\",\"password\":\"null\"}}",
                     "{\"command\": \"Poop\", \"user\":{\"id\":0,\"login\":null,\"password\":null}}",
                     "{\"command\": \"Poop\", \"user\":{\"id\":0,\"login\":,\"password\":}}",
