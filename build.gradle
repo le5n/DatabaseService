@@ -34,6 +34,8 @@ dependencies {
     compile "mysql:mysql-connector-java:$mysql"
     compile "com.fasterxml.jackson.core:jackson-databind:$jackson"
     compile "org.zeromq:jeromq:$jeromq"
+    compile 'ch.qos.logback:logback-classic:latest.release'
+
 
     testCompile "junit:junit:$junit"
     testCompile "com.h2database:h2:$h2"
